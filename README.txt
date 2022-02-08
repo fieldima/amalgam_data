@@ -1,0 +1,50 @@
+- cell_type_specific_markers.zip: Plots of cell-type-specific marker gene expression in human and mouse
+	- marker_expression_brain.pdf: 31 cell types in the brain
+	- marker_expression_heart.pdf: 4 cell types in the heart
+	- marker_expression_kidney.pdf: 10 cell types in the kidney
+	- marker_expression_liver.pdf: 5 cell types in the liver
+- database.zip: An sqlite3 database that contains all information of orthogroup-wise phylogenetic analysis based on non-reconciled gene trees
+- database_reconciled_tree.db.zip: An sqlite3 database that contains all information of orthogroup-wise phylogenetic analysis based on reconciled gene trees
+- high_confidence_branch_reanalysis.zip: pdf files from the analysis of the shifts in high-confidence branches (bootstrap support > 99)
+- script.zip: Scripts used in this paper
+	- busco: Scripts for BUSCO analysis
+	- data_visualization: Scripts for orthogroup database processing and visualization
+	- Ensembl_id_mapping: Scripts for Ensembl ID conversion between transcripts and genes
+	- longest_transcript: Scripts for the longest transcript extraction
+	- Ornstein-Uhlenbeck_simulation: Scripts for the simulation of phylogenetic Ornstein-Uhlenbeck processes
+	- orthogroup_analysis: Scripts used for orthogroup-wise phylogenetic analysis
+	- orthogroup_analysis_summary: Scripts to collect information from the orthogroup-wise phylogenetic analysis
+	- orthogroup_classification: Scripts for OrthoFinder-based gene classification
+	- package_python: In-house python package used in this paper. The latest version is available at https://github.com/kfuku52/kftools
+	- package_R: In-house R package used in this paper. The latest version is available at https://github.com/kfuku52/rkftools
+	- transcriptome_curation_and_quantification: Scripts for kallisto-based quantification of gene expression level
+	- transcriptome_metadata_curation: Scripts for NCBI SRA metadata curation
+- species_tree.zip: Files related to the species tree obtained from timetree.org
+	- species_timetree_query.txt: Annotated query species list
+	- species_timetree_query2.nwk: Output newick tree from timetree.org 
+	- species_timetree_query2.txt: Unannotated query species list
+	- species_timetree.nwk: Finalized newick tree used in this paper
+	- species.txt: Species list of the finalized newick tree
+- transcriptome_amalgamation.zip: Intermediate and final outputs of transcriptome amalgamation
+	- sva_log_tmm_fpkm: SVA-log-TMM-FPKM-based analysis. Files are numbered according to the round of iterative anomalous sample removal.
+		- plot: Summary plots before and in species-wise transcriptome curation
+		- r2: Tables containing R^2 values of surrogate variable predictors in linear regressions
+		- sra: Tables containing the information of NCBI SRA metadata
+		- sva: R objects containing predicted surrogate variables
+		- tau: Tables containig gene-wise organ specificity (tau)
+		- tc: Tables containing SVA-log-TMM-FPKM values
+		- tissue_mean: Tables containing organ-wise mean values of SVA-log-TMM-FPKM
+		- uncorrected_tissue_mean: Tables containing organ-wise mean values of log-TMM-FPKM
+	- sva_log_tpm: SVA-log-TPM-based analysis. Files are numbered according to the round of iterative anomalous sample removal.
+		- plot: Summary plots before and in species-wise transcriptome curation
+		- r2: Tables containing R^2 values of surrogate variable predictors in linear regressions
+		- sra: Tables containing the information of NCBI SRA metadata
+		- sva: R objects containing predicted surrogate variables
+		- tau: Tables containig gene-wise organ specificity (tau)
+		- tc: Tables containing SVA-log-TPM values
+		- tissue_mean: Tables containing organ-wise mean values of SVA-log-TMM-FPKM
+		- uncorrected_tissue_mean: Tables containing organ-wise mean values of log-TPM
+- transcriptome_metadata_curation.zip: Tables produced in NCBI SRA metadata curation
+	- sra_table_amalgamated_2018_5_1.tsv: Table containing the information of NCBI SRA metadata across species
+	- sra_table_pivot_amalgamated_2018_5_1.tsv: Table showing the number of available RNA-seq data in organs and species
+- tree_plot.zip: Orthogroup-wise plots of gene expression evolution

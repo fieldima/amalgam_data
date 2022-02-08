@@ -1,0 +1,22 @@
+Anolis carolinensis
+Tetragonopterus rarus # Astyanax mexicanus
+Bos taurus
+Callithrix jacchus
+Canis lupus
+Chinchilla lanigera
+Danio rerio
+Gadus morhua
+Gallus gallus
+Homo sapiens
+Macaca mulatta
+Monodelphis domestica
+Mus musculus
+Oreochromis tanganicae # Oreochromis niloticus
+Ornithorhynchus anatinus
+Oryctolagus cuniculus
+Oryzias latipes
+Ovis aries
+Rattus norvegicus
+Sus scrofa
+Xenopus tropicalis
+Saccharomyces cerevisiae # outgroup

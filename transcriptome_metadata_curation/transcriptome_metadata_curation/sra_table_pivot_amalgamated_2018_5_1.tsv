@@ -1,0 +1,53 @@
+scientific_name	liver	kidney	brain	heart	testis	ovary
+Xenopus tropicalis	16.0	8.0	8.0	7.0	4.0	4.0
+Danio rerio	18.0	6.0	35.0	7.0	2.0	5.0
+Lepisosteus oculatus	2.0	2.0	2.0	1.0	2.0	1.0
+Anolis carolinensis	57.0	12.0	16.0	13.0	3.0	6.0
+Astyanax mexicanus	2.0	3.0	7.0	3.0	3.0	2.0
+Sus scrofa	187.0	10.0	10.0	24.0	32.0	48.0
+Bos taurus	255.0	9.0	5.0	8.0	29.0	10.0
+Callithrix jacchus	15.0	5.0	4.0	5.0	4.0	1.0
+Rattus norvegicus	40.0	39.0	39.0	37.0	12.0	4.0
+Canis lupus	13.0	9.0	5.0	16.0	10.0	1.0
+Chinchilla lanigera	1.0	1.0	1.0	1.0	1.0	1.0
+Ovis aries	19.0	7.0	2.0	14.0	20.0	54.0
+Oryzias latipes	18.0	1.0	14.0	11.0	6.0	5.0
+Oryctolagus cuniculus	25.0	11.0	3.0	13.0	1.0	1.0
+Ornithorhynchus anatinus	6.0	6.0	7.0	6.0	5.0	6.0
+Oreochromis niloticus	18.0	8.0	7.0	1.0	1.0	2.0
+Mus musculus	7.0	7.0	9.0	3.0	4.0	3.0
+Gadus morhua	10.0	1.0	1.0	1.0	1.0	1.0
+Monodelphis domestica	14.0	8.0	9.0	8.0	8.0	5.0
+Gallus gallus	101.0	29.0	9.0	33.0	24.0	14.0
+Homo sapiens	5.0	6.0	5.0	5.0	4.0	3.0
+Macaca mulatta	33.0	21.0	35.0	12.0	26.0	1.0
+Macaca fascicularis	5.0	5.0	2.0	2.0	1.0	
+Cavia porcellus	7.0	4.0	3.0		1.0	1.0
+Fukomys damarensis	4.0	4.0	1.0		2.0	2.0
+Pan troglodytes	20.0	9.0	2.0	5.0	1.0	
+Mus caroli	6.0	2.0	2.0	2.0	1.0	
+Saimiri boliviensis	1.0	1.0	1.0	1.0		1.0
+Mus pahari	1.0	1.0	1.0	1.0		
+Macaca nemestrina	1.0	1.0	3.0	1.0		
+Takifugu rubripes	2.0	2.0			1.0	1.0
+Gasterosteus aculeatus	14.0	17.0	28.0	1.0		
+Aotus nancymaae	1.0	1.0		1.0		1.0
+Gorilla gorilla	2.0	2.0		2.0	3.0	
+Equus caballus	3.0	3.0	2.0		5.0	
+Drosophila melanogaster			55.0	4.0	38.0	51.0
+Rhinopithecus bieti	1.0	1.0	1.0	1.0		
+Pan paniscus	2.0	2.0		2.0	1.0	
+Felis catus	5.0	3.0	5.0		15.0	
+Cercocebus atys	1.0	1.0		1.0		
+Anas platyrhynchos	12.0		1.0			6.0
+Papio anubis	14.0	1.0		4.0		
+Dasypus novemcinctus	1.0	1.0		1.0		
+Chlorocebus sabaeus	2.0	2.0	2.0			
+Erinaceus europaeus	2.0	2.0	2.0			
+Mesocricetus auratus	14.0	4.0	5.0			
+Meleagris gallopavo	14.0		10.0	10.0		
+Tupaia belangeri	4.0		2.0			
+Taeniopygia guttata			9.0		3.0	
+Microcebus murinus	6.0	1.0				
+Petromyzon marinus			10.0		1.0	
+Ailuropoda melanoleuca					1.0	1.0
