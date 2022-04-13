@@ -3,6 +3,7 @@
 library(geiger)
 library(arbutus)
 library(tidyverse)
+library(flipR)
 
 #Load the tree
 tree <- read.tree("species_tree/species_tree/species_timetree.nwk")
@@ -91,12 +92,12 @@ total_df <- final_orthogroups %>% full_join(Anolis_carolinensis) %>% full_join(A
 rm(Orthogroups, single_copy, Anolis_carolinensis, Astyanax_mexicanus, Bos_taurus, Callithrix_jacchus, Canis_lupus, Chinchilla_lanigera, Danio_rerio, Gadus_morhua, Gallus_gallus, Homo_sapiens, Macaca_mulatta, Mus_musculus, Oreochromis_niloticus, Ornithorhynchus_anatinus, Oryctolagus_cuniculus, Oryzias_latipes, Ovis_aries, Rattus_norvegicus, Sus_scrofa, Xenopus_tropicalis)
 
 #Split data into organs
-brain_df <- total_df %>% filter(Organ == "brain") %>% drop_na(orthogroup)
-heart_df <- total_df %>% filter(Organ == "heart") %>% drop_na(orthogroup)
-kidney_df <- total_df %>% filter(Organ == "kidney") %>% drop_na(orthogroup)
-liver_df <- total_df %>% filter(Organ == "liver") %>% drop_na(orthogroup)
-ovary_df <- total_df %>% filter(Organ == "ovary") %>% drop_na(orthogroup)
-testis_df <- total_df %>% filter(Organ == "testis") %>% drop_na(orthogroup)
+brain_df <- total_df %>% filter(Organ == "brain") %>% drop_na(orthogroup) %>% select(-Organ)
+heart_df <- total_df %>% filter(Organ == "heart") %>% drop_na(orthogroup) %>% select(-Organ)
+kidney_df <- total_df %>% filter(Organ == "kidney") %>% drop_na(orthogroup) %>% select(-Organ)
+liver_df <- total_df %>% filter(Organ == "liver") %>% drop_na(orthogroup) %>% select(-Organ)
+ovary_df <- total_df %>% filter(Organ == "ovary") %>% drop_na(orthogroup) %>% select(-Organ)
+testis_df <- total_df %>% filter(Organ == "testis") %>% drop_na(orthogroup) %>% select(-Organ)
 
 #Standard Error function
 standard_error <- function(x) sd(x) / sqrt(length(x))
@@ -123,7 +124,7 @@ format_expr_data <- function (avgdat) {
 runFC <- function ( dat, SE ){
   fitResults <- vector(mode = "list", length = ncol(dat))
   for(j in 1:ncol(dat)){
-    tdf <- treedata(final_trees[[j]], dat[,j], sort = TRUE)
+    tdf <- treedata(tree, dat[,j], sort = TRUE)
     phy <- tdf$phy
     data <- tdf$data
     fitBM <- fitContinuous(phy, data, SE[[2]][[j]], model = "BM")
@@ -133,7 +134,7 @@ runFC <- function ( dat, SE ){
     fit <- ifelse(min(aic) == aic[1], list(c(fitBM, model = "BM")), 
                   ifelse(min(aic) == aic[2], list(c(fitOU, model = "OU")), 
                          list(c(fitEB, model = "EB"))))
-    fitResults[[j]] <- fit
+    fitResults[j] <- fit
   }
   fitResults
 }
@@ -193,4 +194,5 @@ lv_list <- list(ovary_df, "ovary", ovary_SE)
 ts_list <- list(testis_df, "testis", testis_SE)
 all_list <- list(br_list, cb_list, ht_list, kd_list, lv_list, ts_list)
 
-mclapply(all_list, total_process, mc.cores = 6)
+lapply(all_list, total_process)
+#mclapply(all_list, total_process, mc.cores = 6)
