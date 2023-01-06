@@ -17,18 +17,20 @@ The data in this analysis was taken from a [paper](https://www.nature.com/articl
 ```{r, incl}
 
 library(tidyverse)
-pval_files <- list.files("arbutus/pvals/")
+pval_files <- list.files("arbutus/pvals/") %>% grep("^p", x = ., value = TRUE)
+pval_files_BMS<- list.files("arbutus/pvals/") %>% grep("^B", x = ., value = TRUE)
 
 readfile <- function(filename){
   res <- readRDS(paste0("arbutus/pvals/", filename))
   res
 }
 
-pvals_total <- map_df(pval_files, readfile)
+pvals_total <- map_df(pval_files, readfile) %>% mutate(source = "w/o BMS")
+pvals_total_BMS <- map_df(pval_files_BMS, readfile) %>% mutate(source = "w/ BMS")
 
-p_df <- pvals_total %>% select(!m.sig) %>% transmute(c.less = c.var <= 0.05, sv.less = s.var <= 0.05, sa.less = s.asr <= 0.05, sh.less = s.hgt <= 0.05 & !is.na(s.hgt), d.less = d.cdf <= 0.05) %>% transmute(inade = c.less + sv.less + sa.less + sh.less + d.less) %>% count(inade) %>% mutate(prop = n/sum(n)) %>% mutate(inade = as.character(inade))
+p_df <- pvals_total %>% full_join(pvals_total_BMS) %>% select(!m.sig) %>% group_by(source) %>% transmute(c.less = c.var <= 0.05, sv.less = s.var <= 0.05, sa.less = s.asr <= 0.05, sh.less = s.hgt <= 0.05 & !is.na(s.hgt), d.less = d.cdf <= 0.05) %>% transmute(inade = c.less + sv.less + sa.less + sh.less + d.less) %>% count(inade) %>% mutate(prop = n/sum(n)) %>% mutate(inade = as.character(inade))
 
-figure1 <- p_df %>% ggplot(aes(x = inade, y = n, fill = inade)) + geom_bar(stat = "identity") + geom_text(aes(label = round(prop, digits = 2))) +
+figure1 <- p_df %>% ggplot(aes(x = inade, y = n, fill = inade)) + geom_bar(stat = "identity") + geom_text(aes(label = round(prop, digits = 2))) + facet_wrap(~source) +
   xlab("Number of inadequacies") + ylab("Number of genes") + labs(tag = "A") + ggtitle("Amount of genes by number of inadequacies") + theme_bw() 
 
 ```
@@ -46,3 +48,19 @@ figure1
 **Figure 2: Relative (left) and absolute (right) fit of the amalgamated data for the best-fit model.** The best fit model was most commonly OU, and it was shown to have high adequacy across test statistics, as shown by the relatively uniform distributions of all statistics. Only s.asr seems to show any deviation from uniformity.
 
 The amalgamated data overwhelmingly shows support for the Ornstein-Uhlenbeck model, and is only inadequate in s.asr; which often shows inadequacies when rate variation is not accounted for in a chosen model. The researchers detected evolution rate shifts by looking for differences in optimal trait value in OU models, suggesting that an analysis of the adequacy of muli-optima or multi-rate models may be needed to fully evaluate how well the data supports their conclusions.
+
+```{r}
+test <- pvals_total %>% select(!m.sig) %>%
+  transmute(c.var = c.var <= 0.05, s.var = s.var <= 0.05,
+              s.asr = s.asr <= 0.05, s.hgt = s.hgt <= 0.05 & !is.na(s.hgt),
+              d.cdf = d.cdf <= 0.05) %>% drop_na() %>% summarise(across(.fns = ~sum(.x, na.rm = TRUE))) %>% pivot_longer(cols = everything(), names_to = "test statistic") %>% mutate(models = "w/o BMS") %>% mutate(value = value/nrow(pvals_total), value = round(value, digits = 3))
+
+test2 <- pvals_total_BMS %>% 
+  transmute(c.var = c.var <= 0.05, s.var = s.var <= 0.05,
+              s.asr = s.asr <= 0.05, s.hgt = s.hgt <= 0.05 & !is.na(s.hgt),
+              d.cdf = d.cdf <= 0.05) %>% drop_na() %>% summarise(across(.fns = ~sum(.x, na.rm = TRUE))) %>% pivot_longer(cols = everything(), names_to = "test statistic") %>% mutate(models = "w/ BMS") %>% mutate(value = value/nrow(pvals_total_BMS), value = round(value, digits = 3))
+
+test %>% full_join(test2) %>% 
+  ggplot(aes(x = `test statistic`, y = value, fill = `test statistic`)) + geom_col() +
+  geom_text(aes(label = round(value, digits = 2)), size = 6) + facet_wrap(vars(models)) + theme_bw() + theme(strip.text = element_text(size = 15), legend.position = "none", axis.title = element_text(size = 15), axis.text = element_text(size = 15), panel.grid = element_blank()) + ylab("Proportion of Genes") + xlab("Test Statistic") + scale_fill_brewer(palette = "Set1")
+```

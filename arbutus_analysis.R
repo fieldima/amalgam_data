@@ -4,6 +4,7 @@ library(geiger)
 library(arbutus)
 library(tidyverse)
 library(flipR)
+library(parallel)
 
 #Load the tree
 tree <- read.tree("species_tree/species_tree/species_timetree.nwk")
@@ -177,13 +178,13 @@ total_process <- function (dat_list){
   aic_name <- paste0("arbutus/AIC/AIC_", part, ".png")
   df %>% ggplot(aes(model, value)) + geom_col() + theme_classic()
   ggsave(aic_name)
-  result <- run_arb(fit)
-  rds_name <- paste0("arbutus/pvals/pvals_", part)
-  saveRDS(result, file = rds_name)
-  result %>% select(!m.sig) %>% pivot_longer(cols = everything(), names_to = "tstat") %>%
-    ggplot(aes(value)) + geom_histogram(aes(y = ..density..)) + facet_wrap(~tstat, nrow = 1) + theme_bw()
-  pval_name <- paste0("arbutus/figures/arbutus_", part, ".png")
-  ggsave(pval_name)
+  #result <- run_arb(fit)
+  #rds_name <- paste0("arbutus/pvals/pvals_", part)
+  #saveRDS(result, file = rds_name)
+  #result %>% select(!m.sig) %>% pivot_longer(cols = everything(), names_to = "tstat") %>%
+   # ggplot(aes(value)) + geom_histogram(aes(y = ..density..)) + facet_wrap(~tstat, nrow = 1) + theme_bw()
+  #pval_name <- paste0("arbutus/figures/arbutus_", part, ".png")
+  #ggsave(pval_name)
 }
 
 br_list <- list(brain_df, "brain", brain_SE)
@@ -194,5 +195,5 @@ lv_list <- list(ovary_df, "ovary", ovary_SE)
 ts_list <- list(testis_df, "testis", testis_SE)
 all_list <- list(br_list, cb_list, ht_list, kd_list, lv_list, ts_list)
 
-lapply(all_list, total_process)
-#mclapply(all_list, total_process, mc.cores = 6)
+#lapply(all_list, total_process)
+mclapply(all_list, total_process, mc.cores = 6)
